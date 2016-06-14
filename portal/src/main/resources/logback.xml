@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="300 seconds" debug="false">
+	<substitutionProperty name="log.base" value="/home/portal/portalLogs" />
+
+	<jmxConfigurator />
+	<!-- 按照每天生成日志文件 -->
+	<appender name="filelog_appender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<Prudent>true</Prudent>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!--日志文件输出的文件名 ，打包成ZIP包 -->
+			<FileNamePattern>${log.base}/portal.log.%d{yyyy-MM-dd}.log</FileNamePattern>
+			<!-- 日志过期时间 -->
+			<MaxHistory>35</MaxHistory>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] %logger{80}-%msg%n</pattern>
+		</layout>
+	</appender>
+
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%date [%thread] %-5level %logger{120} - %msg%n</pattern>
+			<pattern>%-16(%d{MM-dd HH:mm:ss.SSS}) %-5level %logger{1}-%msg%n</pattern>
+		</layout>
+	</appender>
+
+	<!-- 需要记录日志的包 -->
+	<logger name="com.j4ml.controller" level="info" />
+	
+	<logger name="com.j4ml.dao" level="info" />
+	
+	<logger name="com.j4ml.service" level="info" />
+
+	<logger name="java.sql" level="info" />
+
+	<root>
+		<level value="info" />
+		<appender-ref ref="filelog_appender" />
+		<appender-ref ref="stdout" />
+	</root>
+
+</configuration>
