@@ -1,4 +1,4 @@
-package com.j4ml.service;
+package com.j4ml.service.admin;
 
 import org.springframework.stereotype.Service;
 
