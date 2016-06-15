@@ -26,11 +26,14 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping(value = "/loginSubmit")
-	public @ResponseBody Map<String, Object> login(){
+	public @ResponseBody Map<String, Object> login(final String userName,final String password,final String code){
 		Map<String, Object> map = new HashMap<String, Object>();
 		Subject currentUser = SecurityUtils.getSubject();
 		MyUsernamePasswordToken token = new MyUsernamePasswordToken();
 		token.setRememberMe(true); 
+		token.setUsername(userName);
+		token.setPassword(password.toCharArray());
+		token.setCode(code);
 		
 		try {
 			currentUser.login(token);
