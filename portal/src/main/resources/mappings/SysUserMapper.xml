@@ -32,6 +32,12 @@
     from sys_user
     where sys_user_id = #{sysUserId,jdbcType=VARCHAR}
   </select>
+  
+  <!-- 通过用户登录名称查询系统用户 -->
+  <select id="findSysUserByLoginName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="Base_Column_List" /> from sys_user where sys_user_name = #{userName,jdbcType=VARCHAR}
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     <!--
       WARNING - @mbggenerated

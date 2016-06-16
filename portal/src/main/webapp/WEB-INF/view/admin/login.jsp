@@ -7,19 +7,17 @@
 <meta name="renderer" content="webkit" />
 <meta name="author" content="SHI CHENGGEN" />
 <title></title>
-<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,500" />
 <link rel="stylesheet" href="../static/css/bootstrap.min.css" />
 <link rel="stylesheet" href="../static/css/style.css" />
 <link rel="stylesheet" href="../static/css/form.css" />
-<script src="../static/js/jquery-1.12.0.min.js"></script>
-<script src="../static/js/bootstrap.min.js"></script>
 </head>
  <!-- Top content -->
         <div class="top-content">
         	
             <div class="inner-bg">
                 <div class="container">
-                    <div class="row">
+                   <!--  <div class="row">
                         <div class="col-sm-8 col-sm-offset-2 text">
                             <h1><strong>Bootstrap</strong> Login Form</h1>
                             <div class="description">
@@ -29,7 +27,7 @@
                             	</p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row">
                         <div class="col-sm-6 col-sm-offset-3 form-box">
                         	<div class="form-top">
@@ -42,16 +40,16 @@
                         		</div>
                             </div>
                             <div class="form-bottom">
-			                    <form role="form" action="" method="post" class="login-form">
+			                    <form role="form" action="../admin/loginSubmit.do" method="post" class="login-form">
 			                    	<div class="form-group">
 			                    		<label class="sr-only" for="form-username">Username</label>
-			                        	<input type="text" name="form-username" placeholder="Username..." class="form-username form-control" id="form-username">
+			                        	<input type="text" id="userName" name="userName" datatype="*" placeholder="Username..." class="form-username form-control" />
 			                        </div>
 			                        <div class="form-group">
 			                        	<label class="sr-only" for="form-password">Password</label>
-			                        	<input type="password" name="form-password" placeholder="Password..." class="form-password form-control" id="form-password">
+			                        	<input type="password" id="password" name="password" datatype="*" placeholder="Password..." class="form-password form-control"  />
 			                        </div>
-			                        <button type="submit" class="btn">Sign in!</button>
+			                        <button type="submit" class="btn" id="loginSubmitBtn">Sign in!</button>
 			                    </form>
 		                    </div>
                         </div>
@@ -76,5 +74,46 @@
             </div>
             
         </div>
-    </body>
+<script src="../static/js/jquery-1.12.0.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>        
+<script src="../static/js/Validform_min.js"></script>  
+<script>
+$(".login-form").Validform({
+	btnSubmit:"#loginSubmitBtn", 
+	btnReset:".btn_reset",
+	tiptype:3, 
+	ignoreHidden:false,
+	dragonfly:false,
+	tipSweep:true,
+	label:".label",
+	showAllError:false,
+	postonce:true,
+	ajaxPost:true,
+	datatype:{
+		"*6-20": /^[^\s]{6,20}$/,
+		"z2-4" : /^[\u4E00-\u9FA5\uf900-\ufa2d]{2,4}$/,
+		"username":function(gets,obj,curform,regxp){
+			//参数gets是获取到的表单元素值，obj为当前表单元素，curform为当前验证的表单，regxp为内置的一些正则表达式的引用;
+			var reg1=/^[\w\.]{4,16}$/,
+				reg2=/^[\u4E00-\u9FA5\uf900-\ufa2d]{2,8}$/;
+ 
+			if(reg1.test(gets)){return true;}
+			if(reg2.test(gets)){return true;}
+			return false;
+ 
+			//注意return可以返回true 或 false 或 字符串文字，true表示验证通过，返回字符串表示验证失败，字符串作为错误提示显示，返回false则用errmsg或默认的错误提示;
+		},
+		"phone":function(){
+			// 5.0 版本之后，要实现二选一的验证效果，datatype 的名称 不 需要以 "option_" 开头;	
+		}
+	},
+	beforeCheck:function(curform){
+	},
+	beforeSubmit:function(curform){
+	},
+	callback:function(data){
+	}
+});
+</script>      
+</body>
 </html>

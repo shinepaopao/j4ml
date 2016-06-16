@@ -1,13 +1,25 @@
 package com.j4ml.core;
 
+import javax.annotation.Resource;
+
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
+import org.apache.shiro.util.ByteSource;
+
+import com.j4ml.dao.bean.SysUser;
+import com.j4ml.service.admin.SysUserService;
 
 public class MyRealm extends AuthorizingRealm{
+	
+	@Resource SysUserService sysUserService;
 
 	/**
 	 * 授权
@@ -30,30 +42,24 @@ public class MyRealm extends AuthorizingRealm{
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-		/*MyUsernamePasswordToken userToken = (MyUsernamePasswordToken) token;
+		MyUsernamePasswordToken userToken = (MyUsernamePasswordToken) token;
         String userName = userToken.getUsername();
         if (userName == null) {
             throw new AccountException();
         }
         
-        UserInfo userInfo = realmService.findByLoginName(userName);
+        SysUser sysUser = sysUserService.findSysUserByLoginName(userName);
         
-        if(userInfo != null) {//用户用户名及密码验证
-        	if(SYSTEM_TYPE.FMCG.equals(userInfo.getUserSystem()) || SYSTEM_TYPE.OMS.equals(userInfo.getUserSystem())){ //帐号所属系统为企业销售平台
-        		SimpleAuthenticationInfo saInfo = new SimpleAuthenticationInfo(userInfo.getLoginName(),userInfo.getLoginPwd(),getName());
+        if(sysUser != null) {//用户用户名及密码验证
+        		SimpleAuthenticationInfo saInfo = new SimpleAuthenticationInfo(sysUser.getSysUserName(),sysUser.getSysUserPwd(),getName());
         		//当前登录用户放入SESSION
         		Subject subjuct = SecurityUtils.getSubject();
-        		subjuct.getSession().setAttribute("userInfo", userInfo);
-        		subjuct.getSession().setAttribute("lastLoginTime", userInfo.getLastLoginTime());
-        		userInfo.setLastLoginTime(new Date());
-        		realmService.updateUserInfo(userInfo);
-        		//用用户名填盐
+        		subjuct.getSession().setAttribute("sysUser", sysUser);
+        		//subjuct.getSession().setAttribute("lastLoginTime", sysUser.getLastLoginTime());
+        		//用户名填盐
         		saInfo.setCredentialsSalt(ByteSource.Util.bytes(userName));
         		return saInfo;
-        	}else{
-        		throw new AuthenticationException();
-        	}
-        }*/
+        }
         return null;
 	}
 	
