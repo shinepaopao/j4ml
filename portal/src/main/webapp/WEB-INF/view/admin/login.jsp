@@ -112,6 +112,7 @@ $(".login-form").Validform({
 	beforeSubmit:function(curform){
 	},
 	callback:function(data){
+		alert(JSON.stringify(data));
 	}
 });
 </script>      

@@ -27,7 +27,7 @@ public class LoginController {
 	@RequestMapping(value = "/loginSubmit")
 	public @ResponseBody Map<String, Object> login(final String userName,final String password,final String code){
 		Map<String, Object> map = new HashMap<String, Object>();
-		/*Subject currentUser = SecurityUtils.getSubject();
+		Subject currentUser = SecurityUtils.getSubject();
 		MyUsernamePasswordToken token = new MyUsernamePasswordToken();
 		token.setRememberMe(true); 
 		token.setUsername(userName);
@@ -48,7 +48,7 @@ public class LoginController {
 		}else{
 			map.put("msg", "账号或密码错误");
 			map.put("status", "0");
-		}*/
+		}
 		return map;
 	}
 	
