@@ -20,6 +20,11 @@ public class LoginController {
 		return "admin/login";
 	}
 	
+	@RequestMapping("/home")
+	public String homePage(){
+		return "admin/home";
+	}
+	
 	/**
 	 * 后台登录
 	 * @return
