@@ -86,6 +86,10 @@
 	<!-- 资源重定向(仅作为后台使用不提供静态资源) -->
 	<!-- <mvc:resources mapping="upload/**" location="/WEB-INF/resources/upload/" cache-period="300" /> --> 
 	
-	
-	
+	<!-- 线程池 -->
+	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">  
+                <property name="corePoolSize" value="5" />  
+                <property name="maxPoolSize" value="10" />  
+                <property name="WaitForTasksToCompleteOnShutdown" value="true" />  
+    </bean> 
 </beans>  
