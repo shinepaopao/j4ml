@@ -8,10 +8,31 @@
   <name>portal Maven Webapp</name>
   <url>http://maven.apache.org</url>
   
+   <repositories>
+		<!-- 如有Nexus私服, 取消注释并指向正确的服务器地址. -->
+		<repository>
+			<id>nexus</id>
+			<name>Team Nexus Repository</name>
+			<url>http://192.168.19.27:8081/nexus/content/groups/public/</url>
+		</repository>
+	</repositories>
+
+	<!-- 设定插件仓库, 如有Nexus私服, 取消注释并指向正确的服务器地址. -->
+	<pluginRepositories>
+		<pluginRepository>
+			<id>nexus</id>
+			<name>Team Nexus Repository</name>
+			<url>http://192.168.19.27:8081/nexus/content/groups/public/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- spring版本号 -->  
-    <spring.version>4.2.5.RELEASE</spring.version>  
+    <spring.version>4.2.4.RELEASE</spring.version>  
     <!-- mybatis版本号 -->  
     <mybatis.version>3.2.8</mybatis.version>  
     <log4j.version>1.2.17</log4j.version>
@@ -19,12 +40,12 @@
   </properties>
   
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
+    	<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
     
     <!-- spring核心包 -->  
         <dependency>  
@@ -129,19 +150,28 @@
             <artifactId>slf4j-api</artifactId>  
             <version>${slf4j.version}</version>  
         </dependency>  
-  
         <dependency>  
             <groupId>org.slf4j</groupId>  
             <artifactId>slf4j-log4j12</artifactId>  
             <version>${slf4j.version}</version>  
         </dependency> 
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-access</artifactId>
+			<version>1.1.7</version>
+		</dependency>
         <!-- log end -->
           
         <!-- 格式化对象，方便输出日志 -->  
         <dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-			<version>1.2.10</version>
+			<version>1.2.12</version>
 		</dependency>  
           
         <dependency>  
